@@ -1,0 +1,201 @@
+IBM Coding Questions
+====================
+Problem Statement 1
+John works in a coin factory where each coin has an ID. He has an array 'nums' of size N. In the factory, coins are assigned to boxes based on the sum of the digits of their IDs. For example, if the ID of a coin is 321, the sum of its digits is 6 (since 3 + 2 + 1 = 6), so the coin will be placed in box 6.
+
+John has been given a task to work with coins that have IDs in the range from the smallest number in 'nums', called the low limit, to the largest number in 'nums', called the high limit. For each number in this range (from low-limit to high-limit, inclusive), John needs to calculate the sum of the digits and place the coin in the corresponding box.
+
+Help John determine which box contains the most coins and output the number of coins in that box.
+
+Note: The factory has coins with IDs ranging from 0 to infinity, but John only needs to work with coins whose IDs lie between the low limit and high limit (inclusive).
+
+Input Format
+The first line contains an integer N, representing the number of elements in nums.
+
+The second line contains n space-separated integers representing the elements of the array nums.
+
+Output Format
+Print a single integer representing the maximum number of coins placed in any one box.
+
+Constraints
+1 <=N <=10^5
+
+0 <= nums[i] <= 10^4
+
+Solution Java
+import java.util.*;
+
+public class Main {
+    static int countBalls1(int lowLimit, int highLimit) {
+        int[] cnt = new int[46];
+        for (int i = lowLimit; i <= highLimit; ++i) {
+            int sum = 0, n = i;
+            while (n > 0) {
+                sum += n % 10;
+                n /= 10;
+            }
+            ++cnt[sum];
+        }
+        return Arrays.stream(cnt).max().getAsInt();
+    }
+
+    static int countBalls(List<Integer> arr) {
+        Collections.sort(arr);
+        int low = arr.get(0);
+        int high = arr.get(arr.size() - 1);
+        return countBalls1(low, high);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            arr.add(sc.nextInt());
+        }
+        System.out.println(countBalls(arr));
+    }
+}
+
+Problem Statement 2
+You were learning the array data structure till your friend challenged you with a problem. Given an array of queries of positive integers between 1 and k, you have to process all queries[i]  according to the following rules:
+
+In the beginning, you have the permutation P=[1,2,3,...,m].
+
+For the current i, find the position of queries[i] in the permutation P (indexing from 0) and then move this at the beginning of the permutation P.
+
+Notice that the position of queries[i] in the permutation P is the result for queries[i]. Print an array containing the result for the given queries.
+
+Input Format
+The first line contains m, the initial permutation P = [1,2,3,….,m]
+
+The following line contains q, the number of queries
+
+The following line contains q numbers denoting the ith query, starting from 0 to q-1.
+
+Output Format
+Print the result of all queries in a space-separated single-line fashion.
+
+Constraints
+1<=m<=5*10^4
+
+1<=q<=m
+
+1<=queries[i]<=m
+
+Solution Java
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Read the initial size of the permutation array
+        int m = scanner.nextInt();
+        
+        // Initialize the permutation array P = [1, 2, 3, ..., m]
+        List<Integer> permutation = new ArrayList<>();
+        for (int i = 1; i <= m; i++) {
+            permutation.add(i);
+        }
+        
+        // Read the number of queries
+        int q = scanner.nextInt();
+        
+        // Read the queries
+        List<Integer> queries = new ArrayList<>();
+        for (int i = 0; i < q; i++) {
+            queries.add(scanner.nextInt());
+        }
+        
+        // Result array to store the results of each query
+        List<Integer> result = new ArrayList<>();
+        
+        // Process each query
+        for (int i = 0; i < q; i++) {
+            int query = queries.get(i);
+            
+            // Find the index of the query in the permutation list
+            int index = permutation.indexOf(query);
+            
+            // Store the result (the position of the query)
+            result.add(index);
+            
+            // Move the query element to the beginning of the permutation
+            // Remove the element from its current position and add it to the front
+            permutation.remove(index);
+            permutation.add(0, query);
+        }
+        
+        // Print the result array
+        for (int res : result) {
+            System.out.print(res + " ");
+        }
+        
+        scanner.close();
+    }
+}
+
+Problem Statement 3
+Ram spots a line of N cars on the busy street, each with a unique feature. You're provided with an array called "features," where features[i] represent a distinctive feature of the ith car. Ram's quest is to discover the widest separation between two cars with different features. Can you help Ram with his quest?
+
+Remember, this distance is determined by the absolute difference in their positions (abs(i - j)).
+
+Input Format
+The first line contains an integer N, the number of cars.
+
+The second line contains N space-separated integers, where each integer denotes the feature of the i-th car.
+
+Output Format
+Print a single integer, which is the widest separation between any two cars that have different features.
+
+Constraints
+2 <= N <= 10^2
+
+0 <= features[i] <= 10^3
+
+Solution Java
+import java.util.*;
+
+public class CarFeatureSeparation {
+
+    public static int maxDistance(List<Integer> cs) {
+        int n = cs.size();
+        int i = 0, j = n - 1;
+
+        // Find the first car with a feature different from the last car's feature
+        while (cs.get(0).equals(cs.get(j))) {
+            --j;
+        }
+
+        // Find the last car with a feature different from the first car's feature
+        while (cs.get(n - 1).equals(cs.get(i))) {
+            ++i;
+        }
+
+        // Return the maximum distance
+        return Math.max(j, n - i - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Read the number of cars
+        int n = scanner.nextInt();
+        
+        // Read the features of the cars
+        List<Integer> a = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            a.add(scanner.nextInt());
+        }
+
+        // Find the maximum separation
+        int ans = maxDistance(a);
+
+        // Print the result
+        System.out.println(ans);
+        
+        scanner.close();
+    }
+}

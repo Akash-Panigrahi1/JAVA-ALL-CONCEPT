@@ -1,0 +1,18 @@
+class AAA 
+{
+	public static void main(String[] args) 
+	{
+		AAA a=new AAA();
+		a.m1(null,null);
+		a.m1(new B());
+	}
+	public void m1(String a){
+		System.out.println("Akash");
+	}
+	public void m1(B... a){
+		System.out.println("String 1 ");
+	}
+}
+class B
+{
+}

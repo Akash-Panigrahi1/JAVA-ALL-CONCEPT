@@ -1,0 +1,18 @@
+import java.util.*;
+class GarbageCollection 
+{
+	public static void main(String[] args) 
+	{
+		Runtime r = Runtime.getRuntime();
+		System.out.println("Total heap space "+r.totalMemory());
+		System.out.println("Total free space "+r.freeMemory());
+		for(int i=1;i<=10000;i++){
+			Date d=new Date();
+			d=null;
+		}
+		System.out.println("Total free space after for loop  "+r.freeMemory());
+		r.gc();
+		System.out.println("Total heap space "+r.totalMemory());
+		System.out.println("Total free space "+r.freeMemory());
+	}
+}

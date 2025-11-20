@@ -1,0 +1,23 @@
+class Covarient 
+{
+	public static void main(String[] args) 
+	{
+		A a = new B();
+		System.out.println(a.method1("Null"));
+		System.out.println(a);
+	}
+}
+class A
+{
+	public Object method1(String s){
+		System.out.println("Method of A class");
+		return new String();
+	}
+}
+class B extends A
+{
+	public String method1(String s){
+		System.out.println("Method of B class");
+			return null;
+			}
+}

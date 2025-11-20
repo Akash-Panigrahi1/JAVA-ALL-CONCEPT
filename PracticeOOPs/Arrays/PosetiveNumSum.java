@@ -1,0 +1,29 @@
+import java.util.Scanner;
+class PosetiveNumSum 
+{
+	public static void main(String[] args) 
+	{
+		int[] arr=readArray();
+		posetiveSum(arr);
+	}
+	public static int[] readArray(){
+		Scanner scanner=new Scanner(System.in);
+        System.out.println("Enter the size of the array:");
+        int size = scanner.nextInt();
+        int[] array = new int[size];
+        System.out.println("Enter the elements of the array:");
+        for(int i = 0; i < size; i++){
+            array[i] = scanner.nextInt();
+        }
+        return array;
+    }
+	public static void posetiveSum(int[] arr){
+		int psum=0;
+		int i=0;
+		while (i<arr.length)
+		{
+			psum+=arr[i];
+		}
+		System.out.println("The Posetivr number sum present in the array is "+psum);
+	}
+}

@@ -1,0 +1,14 @@
+class EnhancedFor{
+	public static void main(String[] args){
+		m1(10);
+		m1(10,20);
+		m1(10,20,30);
+	}
+	public static void m1(int... x){
+		int sum=0;
+		for(int x1 : x){
+			sum+=x1;
+		}
+		System.out.println(sum);
+	}
+}
